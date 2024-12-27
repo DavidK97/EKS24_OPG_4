@@ -1,27 +1,45 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-abstract class AbstractList
-abstract AbstractCollection
-interface List
-interface Collection
-
-List <|-- AbstractList
-Collection <|-- AbstractCollection
-
-Collection <|- List
-AbstractCollection <|- AbstractList
-AbstractList <|-- ArrayList
-
-class ArrayList {
-Object[] elementData
-size()
+class Main {
++ static void Main (String [] args)
 }
 
-enum TimeUnit {
-DAYS
-HOURS
-MINUTES
+class LaundryService {
+- ArrayList <LaundryMachine> machines
+
++ void laundryService ()
++ void addMachine (LaundryMachine)
++ laundryMachine chooseMachine ()
 }
+
+interface LaundryMachine {
++ void chooseProgram ()
++ void displayPriceAndDuration ()
++ void start ()
++ void addExtra
+}
+
+class WashingMachine {
+- int duration
+- double price
+- boolean isRunning
+- int capacity
+
++ WashingMachine (int capacity)
+}
+
+class Dryer {
+- int duration
+- double price
+
++ Dryer ()
+
+}
+
+Main *-- LaundryService
+LaundryService *-- LaundryMachine
+LaundryMachine <|-- WashingMachine
+LaundryMachine <|-- Dryer
 
 @enduml

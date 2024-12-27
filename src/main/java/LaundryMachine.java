@@ -1,4 +1,11 @@
-package PACKAGE_NAME;
-
 public interface LaundryMachine {
+
+    void chooseProgram ();
+
+    void displayPriceAndDuration ();
+
+    void start ();
+
+    void addExtra ();
 }
+
