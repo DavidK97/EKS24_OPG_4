@@ -17,13 +17,14 @@ public class WashingMachine implements LaundryMachine{
         this.price = pricePrKg * capacity;
         this.isRunning = false;
         this.duration = 0;
+        this.ui = new TextUI();
     }
 
 
     public void chooseProgram() {
         int choice = ui.promptNumeric("Vaskemaskine programmer: \n" +
                        "1) Uld og silke \n" +
-                       "2) Bomuld 40 \n " +
+                       "2) Bomuld 40 \n" +
                        "3) Bomuld 60 \n" +
                         "\n" +
                        "Indtast tallet for det ønskede program");
@@ -48,23 +49,41 @@ public class WashingMachine implements LaundryMachine{
 
 
     public void displayPriceAndDuration() {
-        ui.displayMsg("Price: " + getPrice() + "Duration: " + getDuration());
+        ui.displayMsg("Pris: " + getPrice() + " kr | Tid: " + getDuration() + " minutter");
     }
 
 
     public void start() {
         ui.displayMsg("Maskinen er startet");
-        setIsRunning(true);
+        setIsRunning(true);  //Must be true!
     }
 
 
     public void addExtra() {
         if (getIsRunning() == true) {
-            ui.displayMsg("Programmet er påbegyndt. Der kan ikke tilføjes forvask når programmet er igang");
+            ui.displayMsg("Programmet er påbegyndt. Der kan ikke tilføjes forvask, når programmet er igang");
         } else {
-            ui.displayMsg("Forvask tilføjet. Der bliver lagt 5kr til prisen");
-            setPrice(getPrice() + prewashPrice);
+            int choice = ui.promptNumeric("Tilføj forvask for 5 kr? \n" +
+                    "1) Ja \n" +
+                    "2) Nej");
+
+            switch (choice) {
+                case 1:
+                    ui.displayMsg("Forvask tilføjet. Der bliver lagt 5kr til prisen");
+                    setPrice(getPrice() + getPrewashPrice());
+                    break;
+                case 2:
+                    break;
+                default:
+                    ui.displayMsg("Venligst indtast kun tal mellem 1-3");
+                    addExtra();
+                    break;
+            }
         }
+    }
+
+    public String toString () {
+        return "Vaskemaskine: " + getCapacity() + "kg max  |  " + getPricePrKg() + " kr pr. kg  |  ialt: " + getPrice() + "kr";
     }
 
 
@@ -95,5 +114,13 @@ public class WashingMachine implements LaundryMachine{
 
     public boolean getIsRunning() {
         return isRunning;
+    }
+
+    public double getPricePrKg () {
+        return pricePrKg;
+    }
+
+    public double getPrewashPrice () {
+        return prewashPrice;
     }
 }

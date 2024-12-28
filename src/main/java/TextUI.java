@@ -17,7 +17,7 @@ public class TextUI {
             number = Integer.parseInt(input);
 
         } catch (NumberFormatException e ) {
-            displayMsg("Please only type numbers");
+            displayMsg("Venligst indtast kun tal");
             number = promptNumeric(msg);
         }
         return number;
